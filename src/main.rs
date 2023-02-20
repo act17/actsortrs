@@ -8,12 +8,17 @@ use crate::arraygen::arraygen;
 mod bubble;
 use crate::bubble::bubblesort;
 
+mod quick;
+use crate::quick::quicksort;
+
 fn main() {
 
     println!("ACT's Rust Sorting Algorithm Implementation Demo");
     println!("\nPlease enter the length of the array you would like to sort.");
     println!("(Must be a positive integer.)");
- 
+
+    let SortTypes = ["0: Bubble Sort", "1: Quick Sort"];
+    
     // Thanks to B-Fuze32 for helping me with this check.
  
     let ArraySize: usize = {
@@ -31,13 +36,16 @@ fn main() {
 	}
     };
 
-    let _ArrayType: u8 = {
+    let _ArrayType: i32 = {
 
 	let mut Buffer = String::new();
 	loop {
 
             println!("\nPlease enter the type of sorting you'd like:");
-	    println!("0: Bubble Sort");
+            for i in 0..2 {
+                println!("{}",SortTypes[i]);
+	    }
+	    
 	    io::stdin().read_line(&mut Buffer).unwrap();
 
 	    match Buffer.trim().parse() {
@@ -53,8 +61,12 @@ fn main() {
 
     println!("\nOriginal Array:");
     println!("{:?}",Array);
-    
-    bubblesort(ArraySize, &mut Array);
+
+    match _ArrayType {
+        0 => bubblesort(ArraySize, &mut Array),
+	1 => quicksort(ArraySize, &mut Array),
+        _ => panic!("Oh boy! I need to really add safeguards!"),
+    }
     
     println!("\nSorted Array:");
     println!("{:?}",Array);
