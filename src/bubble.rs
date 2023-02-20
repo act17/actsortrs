@@ -13,7 +13,7 @@ pub fn bubblesort(Size: usize, Array: &mut Vec<usize>){
 
       // This loop will actually check to see if numbers
       // must be swapped.
-        for _b in 1..Size - a{
+        for _ in 1..Size - a{
             Current = Array[Offset];
 	    Next = Array[Offset + 1];  
 
