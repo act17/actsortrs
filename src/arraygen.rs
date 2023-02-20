@@ -21,7 +21,7 @@ pub fn arraygen(Size: usize, Array: &mut Vec<usize>){
     // offset will be from 1 to the size of the array minus 1.
     // We also create "UD" - short for "Up-Down". It's a simple
     // 50%-50% switch of an operator to see if we swap up or down.
-    let Offset: usize = rand::thread_rng().gen_range(1..Size);
+    let mut Offset: usize;
     let mut UD: usize;
     // We also also create a temporary buffer for the array values
     // to be used when swapping.
@@ -34,7 +34,8 @@ pub fn arraygen(Size: usize, Array: &mut Vec<usize>){
 	// First we set the buffer.
         Buffer = Array[n];
         UD = rand::thread_rng().gen_range(1..=Size) % 2;
-
+        Offset = rand::thread_rng().gen_range(1..Size);
+	
 	// Now begins the swapping.
 	// We will swap upwards.
 	if UD == 0 {
@@ -55,8 +56,8 @@ pub fn arraygen(Size: usize, Array: &mut Vec<usize>){
 	if UD == 1 {
 
 	    // This is just used for safety.
-	    let TempCheck: i32 = n.try_into().unwrap();
-            let TempOffset: i32 = Offset.try_into().unwrap();
+	    let TempCheck: i32 = n as i32;
+            let TempOffset: i32 = Offset as i32;
 	    
             if TempCheck - TempOffset < 0 {
                 Array[n] = Array[Size - (Offset - n)];
