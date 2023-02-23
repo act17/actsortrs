@@ -4,12 +4,12 @@ use std::io;
 
 mod arraygen;
 use crate::arraygen::arraygen;
-
 mod bubble;
 use crate::bubble::bubblesort;
-
 mod quick;
 use crate::quick::quicksort;
+
+const NUMOFALGS: usize = 1;
 
 fn main() {
 
@@ -42,16 +42,22 @@ fn main() {
 	loop {
 
             println!("\nPlease enter the type of sorting you'd like:");
-            for i in 0..2 {
+            for i in 0..=NUMOFALGS {
                 println!("{}",SortTypes[i]);
 	    }
 	    
 	    io::stdin().read_line(&mut Buffer).unwrap();
-
+            
 	    match Buffer.trim().parse() {
-                Ok(num) => break num,
+                // In the case we entered a number...
+		Ok(num) => match num {
+		    // We then see if the number is between 0 and the maximum.
+                    0..=NUMOFALGS => break num as i32,
+		    _ => Buffer.clear(),
+		},
+		
 		_ => Buffer.clear(),
-	    } 
+	    }
 	}
     };
    
